@@ -33,9 +33,23 @@ rescue CoffeeError => e
 
 end  
 
+class NotBestFriendError < StandardError
+end
+class NoNameError < StandardError
+end
+class NoPastimeError < StandardError
+end
+
 # PHASE 4
 class BestFriend
   def initialize(name, yrs_known, fav_pastime)
+    if name.length <= 0
+      raise NoNameError
+    elsif yrs_known < 5
+      raise NotBestFriendError.new("We haven't know each other long enough...")
+    elsif fav_pastime.length <= 0
+      raise NoPastimeError
+    end
     @name = name
     @yrs_known = yrs_known
     @fav_pastime = fav_pastime
